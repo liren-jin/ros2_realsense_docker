@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3"
 services:
   realsense_ros2:
     build:
@@ -7,6 +7,11 @@ services:
     tty: true
     volumes:
       - /dev:/dev
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
     device_cgroup_rules:
       - 'c 81:* rmw'
       - 'c 189:* rmw'
+    environment:
+      - DISPLAY=unix${DISPLAY}
+      - QT_X11_NO_MITSHM=1
